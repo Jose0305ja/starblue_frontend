@@ -108,14 +108,6 @@ export default function Login() {
           </p>
         </div>
 
-        {/* Demo credentials */}
-        <div className="mt-4 card p-4 text-xs text-sb-muted space-y-1">
-          <p className="font-semibold text-sb-text mb-2">Cuentas de prueba:</p>
-          <p><span className="text-sb-orange">Admin:</span> admin@starblue.mx</p>
-          <p><span className="text-sb-cyan">Empleado:</span> ana@starblue.mx</p>
-          <p><span className="text-sb-green">Cliente:</span> jose@test.mx</p>
-          <p className="text-sb-muted">Contraseña: según rol (Admin2026! / Empleado2026! / Cliente2026!)</p>
-        </div>
       </div>
     </div>
   )
