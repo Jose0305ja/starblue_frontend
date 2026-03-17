@@ -8,6 +8,7 @@ import { BuscadorViajes } from '../../components/viajes/BuscadorViajes'
 import { ViajeCard } from '../../components/viajes/ViajeCard'
 import { LoadingSpinner } from '../../components/ui/LoadingSpinner'
 import { EmptyState } from '../../components/ui/EmptyState'
+import { useCurrency } from '../../context/CurrencyContext'
 
 // Toma solo YYYY-MM-DD sin importar si viene con hora o zona horaria
 const toDateStr = (raw: string) => raw.slice(0, 10)
@@ -25,6 +26,7 @@ const seatColor = (avail: number, total: number) => {
 export default function Buscar() {
   const [searchParams, setSearchParams] = useSearchParams()
   const navigate = useNavigate()
+  const { formatPrice } = useCurrency()
   const [viajes, setViajes] = useState<Viaje[]>([])
   const [loading, setLoading] = useState(false)
   const [filtroClase, setFiltroClase] = useState('')
@@ -227,9 +229,9 @@ export default function Buscar() {
                             <div className="flex-shrink-0 flex sm:flex-col items-center sm:items-end gap-3 sm:gap-1">
                               <div className="text-right">
                                 <p className="font-syne font-extrabold text-xl text-sb-text">
-                                  ${Number(v.precio_base).toLocaleString()}
+                                  {formatPrice(v.precio_base)}
                                 </p>
-                                <p className="text-xs text-sb-muted">MXN / persona</p>
+                                <p className="text-xs text-sb-muted">por persona</p>
                               </div>
                               <button
                                 onClick={() => navigate(`/viajes/${v.id}`)}

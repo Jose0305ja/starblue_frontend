@@ -8,7 +8,7 @@ import { Footer } from '../../components/layout/Footer'
 import { EstadoBadge } from '../../components/ui/EstadoBadge'
 import { Modal } from '../../components/ui/Modal'
 import { LoadingSpinner } from '../../components/ui/LoadingSpinner'
-import { formatMXN, formatFecha, formatHora, formatClase } from '../../utils/formatters'
+import { formatFecha, formatHora, formatClase, formatPrecioReserva } from '../../utils/formatters'
 
 export default function DetalleReservaCliente() {
   const { id } = useParams()
@@ -124,7 +124,7 @@ export default function DetalleReservaCliente() {
           <div className="space-y-2 text-sm">
             <div className="flex justify-between text-sb-muted">
               <span>Precio por pasajero</span>
-              <span className="font-mono-sb">{formatMXN(reserva.precio_unitario)}</span>
+              <span className="font-mono-sb">{formatPrecioReserva(reserva.precio_unitario, reserva.moneda)}</span>
             </div>
             <div className="flex justify-between text-sb-muted">
               <span>Pasajeros</span>
@@ -144,7 +144,7 @@ export default function DetalleReservaCliente() {
             )}
             <div className="flex justify-between pt-2 border-t font-bold text-lg" style={{ borderColor: 'var(--sb-border)' }}>
               <span className="text-sb-text">Total</span>
-              <span className="font-mono-sb text-sb-text">{formatMXN(reserva.precio_total)}</span>
+              <span className="font-mono-sb text-sb-text">{formatPrecioReserva(reserva.precio_total, reserva.moneda)}</span>
             </div>
           </div>
         </div>

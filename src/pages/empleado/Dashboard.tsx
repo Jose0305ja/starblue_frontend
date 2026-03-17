@@ -3,12 +3,13 @@ import api from '../../api'
 import type { DashboardEmpleado } from '../../types'
 import { NavbarEmpleado } from '../../components/layout/NavbarEmpleado'
 import { LoadingSpinner } from '../../components/ui/LoadingSpinner'
-import { formatMXN } from '../../utils/formatters'
+import { useCurrency } from '../../context/CurrencyContext'
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid
 } from 'recharts'
 
 export default function EmpleadoDashboard() {
+  const { formatPrice } = useCurrency()
   const [data, setData] = useState<DashboardEmpleado | null>(null)
   const [loading, setLoading] = useState(true)
 
@@ -22,7 +23,7 @@ export default function EmpleadoDashboard() {
   const kpis = data ? [
     { label: 'Reservas este mes', value: data.total_reservas, color: 'var(--sb-blue-lt)', icon: '🎫' },
     { label: 'Clientes atendidos', value: data.clientes_unicos, color: 'var(--sb-green)', icon: '👤' },
-    { label: 'Ingresos generados', value: formatMXN(Number(data.ingresos_generados)), color: '#F59E0B', icon: '💰' },
+    { label: 'Ingresos generados', value: formatPrice(Number(data.ingresos_generados)), color: '#F59E0B', icon: '💰' },
     { label: 'Ranking en equipo', value: `#${data.ranking_posicion ?? '—'} de ${data.total_empleados}`, color: '#A78BFA', icon: '🏆' },
   ] : []
 
@@ -104,7 +105,7 @@ export default function EmpleadoDashboard() {
                 <div className="space-y-3">
                   <div className="flex justify-between text-sm">
                     <span className="text-sb-muted">Ticket promedio</span>
-                    <span className="font-mono-sb text-sb-text">{formatMXN(Number(data?.ticket_promedio ?? 0))}</span>
+                    <span className="font-mono-sb text-sb-text">{formatPrice(Number(data?.ticket_promedio ?? 0))}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-sb-muted">Posición en ranking</span>

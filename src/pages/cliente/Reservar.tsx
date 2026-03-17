@@ -6,8 +6,9 @@ import type { Viaje, Pasajero } from '../../types'
 import { useAuth } from '../../context/AuthContext'
 import { NavbarPublico } from '../../components/layout/NavbarPublico'
 import { LoadingSpinner } from '../../components/ui/LoadingSpinner'
-import { formatMXN, formatFecha, formatHora, formatClase } from '../../utils/formatters'
+import { formatFecha, formatHora, formatClase } from '../../utils/formatters'
 import { getDescuento } from '../../utils/nivelMembresia'
+import { useCurrency } from '../../context/CurrencyContext'
 
 type TipoViaje = 'sencillo' | 'redondo'
 
@@ -15,6 +16,7 @@ export default function Reservar() {
   const { viajeId } = useParams()
   const navigate = useNavigate()
   const { usuario } = useAuth()
+  const { moneda, formatPrice } = useCurrency()
 
   const [paso, setPaso] = useState(1)
   const [viaje, setViaje] = useState<Viaje | null>(null)
@@ -74,6 +76,7 @@ export default function Reservar() {
         num_pasajeros: numPasajeros,
         tipo_viaje: tipoViaje,
         pasajeros,
+        moneda,
       })
       const folio: string = res.data.data.folio
       navigate(`/confirmacion/${folio}`, { state: { reservacion: res.data.data, message: res.data.message } })
@@ -173,9 +176,9 @@ export default function Reservar() {
               <div className="flex justify-between text-sm text-sb-muted mb-2">
                 <span>Precio por pasajero</span>
                 {descuento > 0 ? (
-                  <span className="text-sb-green">{formatMXN(precioUnitario)} <span className="text-xs">(-{descuento}%)</span></span>
+                  <span className="text-sb-green">{formatPrice(precioUnitario)} <span className="text-xs">(-{descuento}%)</span></span>
                 ) : (
-                  <span>{formatMXN(precio)}</span>
+                  <span>{formatPrice(precio)}</span>
                 )}
               </div>
               <div className="flex justify-between text-sm text-sb-muted mb-2">
@@ -183,7 +186,7 @@ export default function Reservar() {
               </div>
               <div className="flex justify-between font-bold text-lg pt-2 border-t" style={{ borderColor: 'var(--sb-border)' }}>
                 <span className="text-sb-text">Total</span>
-                <span className="font-mono-sb text-sb-text">{formatMXN(total)}</span>
+                <span className="font-mono-sb text-sb-text">{formatPrice(total)}</span>
               </div>
             </div>
 
@@ -253,7 +256,7 @@ export default function Reservar() {
 
             <div className="card p-4 flex justify-between items-center">
               <span className="text-sb-muted text-sm">Total a pagar</span>
-              <span className="font-mono-sb font-bold text-xl text-sb-text">{formatMXN(total)}</span>
+              <span className="font-mono-sb font-bold text-xl text-sb-text">{formatPrice(total)}</span>
             </div>
 
             <button

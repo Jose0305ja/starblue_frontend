@@ -70,6 +70,7 @@ export interface Reservacion {
   precio_unitario: number
   precio_total: number
   descuento_aplicado: number
+  moneda: 'MXN' | 'USD'
   estado: 'pendiente' | 'confirmada' | 'completada' | 'cancelada'
   pasajeros?: Pasajero[]
   // datos del viaje embebidos

@@ -3,13 +3,14 @@ import api from '../../api'
 import type { ResumenAdmin, RutaPopular, IngresoMensual, EmpleadoRanking, DestinoTop } from '../../types'
 import { NavbarEmpleado } from '../../components/layout/NavbarEmpleado'
 import { LoadingSpinner } from '../../components/ui/LoadingSpinner'
-import { formatMXN } from '../../utils/formatters'
+import { useCurrency } from '../../context/CurrencyContext'
 import {
   LineChart, Line, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
   CartesianGrid, Legend,
 } from 'recharts'
 
 export default function AdminDashboard() {
+  const { formatPrice } = useCurrency()
   const [resumen, setResumen] = useState<ResumenAdmin | null>(null)
   const [rutas, setRutas] = useState<RutaPopular[]>([])
   const [ingresos, setIngresos] = useState<IngresoMensual[]>([])
@@ -35,7 +36,7 @@ export default function AdminDashboard() {
 
   const kpis = resumen ? [
     { label: 'Reservas este mes', value: resumen.total_reservas, color: 'var(--sb-blue-lt)', icon: '🎫' },
-    { label: 'Ingresos del mes', value: formatMXN(Number(resumen.ingresos_mes)), color: 'var(--sb-green)', icon: '💰' },
+    { label: 'Ingresos del mes', value: formatPrice(Number(resumen.ingresos_mes)), color: 'var(--sb-green)', icon: '💰' },
     { label: 'Clientes atendidos', value: resumen.clientes_unicos, color: '#F59E0B', icon: '👤' },
     { label: 'Cancelaciones', value: resumen.total_cancelaciones, color: 'var(--sb-red)', icon: '✕' },
   ] : []
@@ -89,7 +90,7 @@ export default function AdminDashboard() {
                     <YAxis tick={{ fill: 'var(--sb-muted)', fontSize: 10 }} tickFormatter={v => `$${(v/1000).toFixed(0)}k`} />
                     <Tooltip
                       contentStyle={{ backgroundColor: 'var(--sb-card-bg)', border: '1px solid var(--sb-border2)', borderRadius: 8, color: 'var(--sb-text)' }}
-                      formatter={(v: number) => [formatMXN(v), 'Ingresos']}
+                      formatter={(v: number) => [formatPrice(v), 'Ingresos']}
                     />
                     <Line type="monotone" dataKey="ingresos" stroke="#5B74F0" strokeWidth={2} dot={{ fill: '#5B74F0', r: 3 }} />
                   </LineChart>
@@ -145,7 +146,7 @@ export default function AdminDashboard() {
                         <p className="text-sm font-semibold text-sb-text">{e.nombre} {e.apellido}</p>
                         <p className="text-xs text-sb-muted">{e.total_reservas} reservas</p>
                       </div>
-                      <span className="font-mono-sb text-sm text-sb-green">{formatMXN(Number(e.ingresos_generados))}</span>
+                      <span className="font-mono-sb text-sm text-sb-green">{formatPrice(Number(e.ingresos_generados))}</span>
                     </div>
                   ))}
                 </div>

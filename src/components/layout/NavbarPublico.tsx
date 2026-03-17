@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { ThemeToggle } from '../ui/ThemeToggle'
+import { CurrencyToggle } from '../ui/CurrencyToggle'
 import { getNivelColor, getProgreso, NIVELES } from '../../utils/nivelMembresia'
 
 export const NavbarPublico = () => {
@@ -57,6 +58,7 @@ export const NavbarPublico = () => {
         {/* Actions */}
         <div className="hidden md:flex items-center gap-3">
           <ThemeToggle />
+          <CurrencyToggle />
           <Link
             to="/buscar"
             className="btn-primary text-sm py-2 px-4"

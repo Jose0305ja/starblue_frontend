@@ -7,7 +7,7 @@ import { NavbarEmpleado } from '../../components/layout/NavbarEmpleado'
 import { EstadoBadge } from '../../components/ui/EstadoBadge'
 import { Modal } from '../../components/ui/Modal'
 import { LoadingSpinner } from '../../components/ui/LoadingSpinner'
-import { formatMXN, formatFechaCorta, formatHora } from '../../utils/formatters'
+import { formatFechaCorta, formatHora, formatPrecioReserva } from '../../utils/formatters'
 
 type TabEstado = 'todas' | 'pendiente' | 'confirmada' | 'completada' | 'cancelada'
 
@@ -168,7 +168,7 @@ export default function EmpleadoReservaciones() {
                     </td>
                     <td className="px-4 py-3 text-sb-text">{r.num_pasajeros}</td>
                     <td className="px-4 py-3"><EstadoBadge estado={r.estado} size="sm" /></td>
-                    <td className="px-4 py-3 font-mono-sb text-sb-text">{formatMXN(r.precio_total)}</td>
+                    <td className="px-4 py-3 font-mono-sb text-sb-text">{formatPrecioReserva(r.precio_total, r.moneda)}</td>
                     <td className="px-4 py-3">
                       <button className="text-sb-blue-lt text-xs hover:underline">Ver →</button>
                     </td>

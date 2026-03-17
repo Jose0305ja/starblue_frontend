@@ -1,11 +1,11 @@
 import { useParams, useLocation, Link } from 'react-router-dom'
-import { formatMXN } from '../../utils/formatters'
 import { NavbarPublico } from '../../components/layout/NavbarPublico'
+import { formatPrecioReserva } from '../../utils/formatters'
 
 export default function Confirmacion() {
   const { folio } = useParams()
   const location = useLocation()
-  const state = location.state as { reservacion?: { precio_total: number; num_pasajeros: number; descuento_aplicado: number; subio_nivel?: boolean; nivel_nuevo?: string }; message?: string } | null
+  const state = location.state as { reservacion?: { precio_total: number; num_pasajeros: number; descuento_aplicado: number; moneda?: string; subio_nivel?: boolean; nivel_nuevo?: string }; message?: string } | null
 
   const reservacion = state?.reservacion
   const message = state?.message ?? ''
@@ -46,7 +46,7 @@ export default function Confirmacion() {
               )}
               <div className="flex justify-between font-bold text-base">
                 <span className="text-sb-text">Total pagado</span>
-                <span className="font-mono-sb text-sb-text">{formatMXN(reservacion.precio_total)}</span>
+                <span className="font-mono-sb text-sb-text">{formatPrecioReserva(reservacion.precio_total, reservacion.moneda)}</span>
               </div>
             </div>
           )}

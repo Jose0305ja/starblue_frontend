@@ -7,8 +7,9 @@ import { NavbarPublico } from '../../components/layout/NavbarPublico'
 import { Footer } from '../../components/layout/Footer'
 import { EstadoBadge } from '../../components/ui/EstadoBadge'
 import { LoadingSpinner } from '../../components/ui/LoadingSpinner'
-import { formatMXN, formatFecha, formatHora, formatClase, formatTipoServicio } from '../../utils/formatters'
+import { formatFecha, formatHora, formatClase, formatTipoServicio } from '../../utils/formatters'
 import { getDescuento } from '../../utils/nivelMembresia'
+import { useCurrency } from '../../context/CurrencyContext'
 
 export default function DetalleViaje() {
   const { id } = useParams()
@@ -27,6 +28,7 @@ export default function DetalleViaje() {
   if (loading) return <div className="min-h-screen flex items-center justify-center"><LoadingSpinner size="lg" /></div>
   if (!viaje) return <div className="min-h-screen flex items-center justify-center"><p className="text-sb-muted">Viaje no encontrado</p></div>
 
+  const { formatPrice } = useCurrency()
   const descuento = usuario ? getDescuento(usuario.viajes_realizados) : 0
   const precio = Number(viaje.precio_base)
   const precioFinal = precio * (1 - descuento / 100)
@@ -102,15 +104,15 @@ export default function DetalleViaje() {
             <div>
               {descuento > 0 && isAuthenticated ? (
                 <div>
-                  <p className="text-sb-muted text-sm line-through">{formatMXN(precio)}</p>
-                  <p className="font-mono-sb font-bold text-3xl text-sb-green">{formatMXN(precioFinal)}</p>
+                  <p className="text-sb-muted text-sm line-through">{formatPrice(precio)}</p>
+                  <p className="font-mono-sb font-bold text-3xl text-sb-green">{formatPrice(precioFinal)}</p>
                   <span className="text-xs font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: 'rgba(34,197,94,0.15)', color: 'var(--sb-green)' }}>
                     {descuento}% de descuento aplicado
                   </span>
                 </div>
               ) : (
                 <div>
-                  <p className="font-mono-sb font-bold text-3xl text-sb-text">{formatMXN(precio)}</p>
+                  <p className="font-mono-sb font-bold text-3xl text-sb-text">{formatPrice(precio)}</p>
                   {!isAuthenticated && (
                     <p className="text-xs text-sb-muted mt-1">
                       <span className="text-sb-blue-lt cursor-pointer" onClick={() => navigate('/login')}>Inicia sesión</span> para ver tu descuento

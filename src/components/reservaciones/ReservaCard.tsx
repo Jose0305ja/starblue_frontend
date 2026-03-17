@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { EstadoBadge } from '../ui/EstadoBadge'
-import { formatMXN, formatFechaCorta, formatHora } from '../../utils/formatters'
+import { formatPrecioReserva, formatFechaCorta, formatHora } from '../../utils/formatters'
 import type { Reservacion } from '../../types'
 
 interface ReservaCardProps {
@@ -48,7 +48,7 @@ export const ReservaCard = ({ reserva, basePath = '/mis-reservas' }: ReservaCard
 
         <div className="flex flex-col items-end gap-2 flex-shrink-0">
           <EstadoBadge estado={reserva.estado} />
-          <p className="font-mono-sb font-bold text-sb-text text-base">{formatMXN(reserva.precio_total)}</p>
+          <p className="font-mono-sb font-bold text-sb-text text-base">{formatPrecioReserva(reserva.precio_total, reserva.moneda)}</p>
         </div>
       </div>
     </div>

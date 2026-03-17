@@ -3,9 +3,10 @@ import api from '../../api'
 import type { IngresoMensual, EmpleadoRanking } from '../../types'
 import { NavbarEmpleado } from '../../components/layout/NavbarEmpleado'
 import { LoadingSpinner } from '../../components/ui/LoadingSpinner'
-import { formatMXN } from '../../utils/formatters'
+import { useCurrency } from '../../context/CurrencyContext'
 
 export default function AdminReportes() {
+  const { formatPrice } = useCurrency()
   const [ingresos, setIngresos] = useState<IngresoMensual[]>([])
   const [ranking, setRanking] = useState<EmpleadoRanking[]>([])
   const [loading, setLoading] = useState(true)
@@ -100,7 +101,7 @@ export default function AdminReportes() {
                     <tr key={i.mes} className="hover:bg-[var(--sb-hover-bg)]" style={{ borderBottom: '1px solid var(--sb-border)' }}>
                       <td className="px-5 py-3 font-mono-sb text-sb-text">{i.mes}</td>
                       <td className="px-5 py-3 font-mono-sb text-sb-muted">{i.total_reservas}</td>
-                      <td className="px-5 py-3 font-mono-sb font-bold text-sb-green">{formatMXN(Number(i.ingresos))}</td>
+                      <td className="px-5 py-3 font-mono-sb font-bold text-sb-green">{formatPrice(Number(i.ingresos))}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -129,8 +130,8 @@ export default function AdminReportes() {
                       <td className="px-5 py-3 text-sb-muted font-mono-sb">{idx + 1}</td>
                       <td className="px-5 py-3 font-semibold text-sb-text">{e.nombre} {e.apellido}</td>
                       <td className="px-5 py-3 font-mono-sb text-sb-text">{e.total_reservas}</td>
-                      <td className="px-5 py-3 font-mono-sb text-sb-green">{formatMXN(Number(e.ingresos_generados))}</td>
-                      <td className="px-5 py-3 font-mono-sb text-sb-muted">{formatMXN(Number(e.ticket_promedio))}</td>
+                      <td className="px-5 py-3 font-mono-sb text-sb-green">{formatPrice(Number(e.ingresos_generados))}</td>
+                      <td className="px-5 py-3 font-mono-sb text-sb-muted">{formatPrice(Number(e.ticket_promedio))}</td>
                     </tr>
                   ))}
                 </tbody>

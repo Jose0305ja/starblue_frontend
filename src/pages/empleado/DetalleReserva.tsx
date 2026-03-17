@@ -6,7 +6,7 @@ import type { Reservacion } from '../../types'
 import { NavbarEmpleado } from '../../components/layout/NavbarEmpleado'
 import { EstadoBadge } from '../../components/ui/EstadoBadge'
 import { LoadingSpinner } from '../../components/ui/LoadingSpinner'
-import { formatMXN, formatFecha, formatHora } from '../../utils/formatters'
+import { formatFecha, formatHora, formatPrecioReserva } from '../../utils/formatters'
 
 const ESTADOS = ['pendiente', 'confirmada', 'completada', 'cancelada']
 
@@ -115,7 +115,7 @@ export default function EmpleadoDetalleReserva() {
           </div>
           <div className="mt-4 pt-4 border-t flex justify-between items-center" style={{ borderColor: 'var(--sb-border)' }}>
             <span className="text-sb-muted text-sm">Total</span>
-            <span className="font-mono-sb font-bold text-xl text-sb-text">{formatMXN(reserva.precio_total)}</span>
+            <span className="font-mono-sb font-bold text-xl text-sb-text">{formatPrecioReserva(reserva.precio_total, reserva.moneda)}</span>
           </div>
         </div>
       </main>

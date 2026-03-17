@@ -1,6 +1,18 @@
 export const formatMXN = (n: number | string): string =>
   new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(Number(n))
 
+/**
+ * Formatea el precio de una reservación usando la moneda con la que fue pagada,
+ * sin re-convertir con el tipo de cambio actual.
+ */
+export const formatPrecioReserva = (amount: number | string, moneda: string = 'MXN'): string => {
+  const n = Number(amount)
+  if (moneda === 'USD') {
+    return `$${n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USD`
+  }
+  return `$${n.toLocaleString('es-MX', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} MXN`
+}
+
 // Normaliza a YYYY-MM-DD antes de parsear para evitar "Invalid Date"
 // cuando la API devuelve timestamps completos ("2026-03-18T00:00:00.000Z")
 const toLocal = (fecha: string) => new Date(fecha.slice(0, 10) + 'T12:00:00')

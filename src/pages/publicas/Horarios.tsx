@@ -5,6 +5,7 @@ import type { Viaje, Ruta } from '../../types'
 import { NavbarPublico } from '../../components/layout/NavbarPublico'
 import { Footer } from '../../components/layout/Footer'
 import { formatTipoServicio } from '../../utils/formatters'
+import { useCurrency } from '../../context/CurrencyContext'
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -32,6 +33,7 @@ const seatColor = (avail: number, total: number) => {
 export default function Horarios() {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
+  const { formatPrice } = useCurrency()
 
   // Si vienen parámetros de URL (ej. /horarios?fecha=2026-03-20)
   const initFecha = searchParams.get('fecha') ?? todayStr
@@ -442,9 +444,9 @@ export default function Horarios() {
                       <div className="flex-shrink-0 flex sm:flex-col items-center sm:items-end gap-4 sm:gap-1.5">
                         <div className="text-right">
                           <p className="font-syne font-extrabold text-2xl text-sb-text">
-                            ${Number(v.precio_base).toLocaleString()}
+                            {formatPrice(v.precio_base)}
                           </p>
-                          <p className="text-xs text-sb-muted">MXN / persona</p>
+                          <p className="text-xs text-sb-muted">por persona</p>
                         </div>
                         <button
                           onClick={() => navigate(`/viajes/${v.id}`)}
