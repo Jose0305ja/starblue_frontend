@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { ThemeToggle } from '../ui/ThemeToggle'
+import { CurrencyToggle } from '../ui/CurrencyToggle'
 
 interface NavItem { label: string; icon: string; to: string; badge?: number }
 
@@ -84,6 +85,14 @@ export const NavbarEmpleado = () => {
         )}
       </div>
 
+      {/* Toggles tema / moneda */}
+      {!collapsed && (
+        <div className="px-3 pb-2 flex items-center gap-2 border-t pt-3" style={{ borderColor: 'rgba(255,255,255,0.07)' }}>
+          <ThemeToggle compact />
+          <CurrencyToggle compact />
+        </div>
+      )}
+
       {/* Usuario */}
       <div className="p-3 border-t" style={{ borderColor: 'rgba(255,255,255,0.07)' }}>
         <div className="flex items-center gap-3">
@@ -122,7 +131,11 @@ export const NavbarEmpleado = () => {
           <span className="text-white">STAR</span>
           <span style={{ color: '#5B74F0' }}>BLUE★</span>
         </div>
-        <button onClick={() => setMobileOpen(v => !v)} className="text-sb-muted">
+        <div className="flex items-center gap-2">
+        <ThemeToggle compact />
+        <CurrencyToggle compact />
+      </div>
+      <button onClick={() => setMobileOpen(v => !v)} className="text-sb-muted">
           <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={mobileOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'} />
           </svg>

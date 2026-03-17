@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
-import { formatMXN, formatFechaCorta, formatHora, formatClase } from '../../utils/formatters'
+import { formatFechaCorta, formatHora, formatClase } from '../../utils/formatters'
 import { getDescuento } from '../../utils/nivelMembresia'
+import { useCurrency } from '../../context/CurrencyContext'
 import type { Viaje } from '../../types'
 
 interface ViajeCardProps {
@@ -11,6 +12,7 @@ interface ViajeCardProps {
 export const ViajeCard = ({ viaje }: ViajeCardProps) => {
   const navigate = useNavigate()
   const { usuario } = useAuth()
+  const { formatPrice } = useCurrency()
 
   const descuento = usuario ? getDescuento(usuario.viajes_realizados) : 0
   const precio = Number(viaje.precio_base)
@@ -92,8 +94,8 @@ export const ViajeCard = ({ viaje }: ViajeCardProps) => {
         <div className="text-right">
           {descuento > 0 && usuario ? (
             <>
-              <p className="text-sb-muted text-xs line-through">{formatMXN(precio)}</p>
-              <p className="text-sb-green font-bold text-lg font-mono-sb">{formatMXN(precioConDescuento)}</p>
+              <p className="text-sb-muted text-xs line-through">{formatPrice(precio)}</p>
+              <p className="text-sb-green font-bold text-lg font-mono-sb">{formatPrice(precioConDescuento)}</p>
               <span
                 className="text-xs font-bold px-2 py-0.5 rounded-full"
                 style={{ backgroundColor: 'rgba(34,197,94,0.15)', color: '#22C55E' }}
@@ -102,7 +104,7 @@ export const ViajeCard = ({ viaje }: ViajeCardProps) => {
               </span>
             </>
           ) : (
-            <p className="text-sb-text font-bold text-lg font-mono-sb">{formatMXN(precio)}</p>
+            <p className="text-sb-text font-bold text-lg font-mono-sb">{formatPrice(precio)}</p>
           )}
         </div>
       </div>

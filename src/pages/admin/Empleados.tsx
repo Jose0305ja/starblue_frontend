@@ -6,9 +6,10 @@ import type { EmpleadoRanking } from '../../types'
 import { NavbarEmpleado } from '../../components/layout/NavbarEmpleado'
 import { Modal } from '../../components/ui/Modal'
 import { LoadingSpinner } from '../../components/ui/LoadingSpinner'
-import { formatMXN } from '../../utils/formatters'
+import { useCurrency } from '../../context/CurrencyContext'
 
 export default function AdminEmpleados() {
+  const { formatPrice } = useCurrency()
   const [empleados, setEmpleados] = useState<Usuario[]>([])
   const [ranking, setRanking] = useState<EmpleadoRanking[]>([])
   const [loading, setLoading] = useState(true)
@@ -125,8 +126,8 @@ export default function AdminEmpleados() {
                         </td>
                         <td className="px-4 py-3 text-sb-muted">{emp.email}</td>
                         <td className="px-4 py-3 font-mono-sb text-sb-text">{rd?.total_reservas ?? '0'}</td>
-                        <td className="px-4 py-3 font-mono-sb text-sb-green">{formatMXN(Number(rd?.ingresos_generados ?? 0))}</td>
-                        <td className="px-4 py-3 font-mono-sb text-sb-muted">{formatMXN(Number(rd?.ticket_promedio ?? 0))}</td>
+                        <td className="px-4 py-3 font-mono-sb text-sb-green">{formatPrice(Number(rd?.ingresos_generados ?? 0))}</td>
+                        <td className="px-4 py-3 font-mono-sb text-sb-muted">{formatPrice(Number(rd?.ticket_promedio ?? 0))}</td>
                       </tr>
                     )
                   })}

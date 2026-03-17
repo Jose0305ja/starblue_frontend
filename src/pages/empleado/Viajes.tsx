@@ -6,9 +6,11 @@ import { NavbarEmpleado } from '../../components/layout/NavbarEmpleado'
 import { EstadoBadge } from '../../components/ui/EstadoBadge'
 import { Modal } from '../../components/ui/Modal'
 import { LoadingSpinner } from '../../components/ui/LoadingSpinner'
-import { formatMXN, formatFechaCorta, formatHora, formatClase } from '../../utils/formatters'
+import { formatFechaCorta, formatHora, formatClase } from '../../utils/formatters'
+import { useCurrency } from '../../context/CurrencyContext'
 
 export default function EmpleadoViajes() {
+  const { formatPrice } = useCurrency()
   const [viajes, setViajes] = useState<Viaje[]>([])
   const [rutas, setRutas] = useState<Ruta[]>([])
   const [loading, setLoading] = useState(true)
@@ -96,7 +98,7 @@ export default function EmpleadoViajes() {
                         {v.asientos_disponibles}/{v.asientos_total}
                       </span>
                     </td>
-                    <td className="px-4 py-3 font-mono-sb text-sb-text">{formatMXN(v.precio_base)}</td>
+                    <td className="px-4 py-3 font-mono-sb text-sb-text">{formatPrice(v.precio_base)}</td>
                     <td className="px-4 py-3"><EstadoBadge estado={v.estado} size="sm" /></td>
                     <td className="px-4 py-3 font-mono-sb text-xs text-sb-muted">{v.numero_unidad ?? '—'}</td>
                   </tr>

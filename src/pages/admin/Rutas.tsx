@@ -3,12 +3,13 @@ import api from '../../api'
 import type { RutaPopular, DestinoTop } from '../../types'
 import { NavbarEmpleado } from '../../components/layout/NavbarEmpleado'
 import { LoadingSpinner } from '../../components/ui/LoadingSpinner'
-import { formatMXN } from '../../utils/formatters'
+import { useCurrency } from '../../context/CurrencyContext'
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts'
 
 const COLORS = ['#5B74F0', '#22C55E', '#F59E0B', '#A78BFA', '#EF4444', '#06B6D4', '#EAB308', '#EC4899']
 
 export default function AdminRutas() {
+  const { formatPrice } = useCurrency()
   const [rutas, setRutas] = useState<RutaPopular[]>([])
   const [destinos, setDestinos] = useState<DestinoTop[]>([])
   const [loading, setLoading] = useState(true)
@@ -29,7 +30,7 @@ export default function AdminRutas() {
     { label: 'Rutas activas', value: String(rutas.length), color: 'var(--sb-blue-lt)' },
     { label: 'Ruta más popular', value: rutas[0] ? `${rutas[0].ciudad_origen} → ${rutas[0].ciudad_destino}` : '—', color: 'var(--sb-green)' },
     { label: 'Total pasajeros', value: String(rutas.reduce((s, r) => s + Number(r.total_pasajeros), 0)), color: '#F59E0B' },
-    { label: 'Total ingresos', value: formatMXN(rutas.reduce((s, r) => s + Number(r.ingresos_total), 0)), color: '#A78BFA' },
+    { label: 'Total ingresos', value: formatPrice(rutas.reduce((s, r) => s + Number(r.ingresos_total), 0)), color: '#A78BFA' },
   ]
 
   return (
@@ -105,7 +106,7 @@ export default function AdminRutas() {
                       <td className="px-4 py-3 font-semibold text-sb-text">{r.ciudad_origen} → {r.ciudad_destino}</td>
                       <td className="px-4 py-3 font-mono-sb text-sb-text">{r.total_reservas}</td>
                       <td className="px-4 py-3 font-mono-sb text-sb-muted">{r.total_pasajeros}</td>
-                      <td className="px-4 py-3 font-mono-sb text-sb-green">{formatMXN(Number(r.ingresos_total))}</td>
+                      <td className="px-4 py-3 font-mono-sb text-sb-green">{formatPrice(Number(r.ingresos_total))}</td>
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-2">
                           <div className="w-16 h-1.5 rounded-full overflow-hidden bg-sb-bg3">
