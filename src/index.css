@@ -1,0 +1,203 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ══════════════════════════════════════════════════════════
+   TEMA OSCURO (default)
+══════════════════════════════════════════════════════════ */
+:root {
+  --sb-bg:         #07090F;
+  --sb-bg2:        #0D1220;
+  --sb-bg3:        #131929;
+  --sb-bg4:        #1A2235;
+  --sb-blue:       #3D56D4;
+  --sb-blue-lt:    #5B74F0;
+  --sb-green:      #22C55E;
+  --sb-orange:     #F59E0B;
+  --sb-purple:     #A78BFA;
+  --sb-red:        #EF4444;
+  --sb-cyan:       #06B6D4;
+  --sb-text:       #E8EDF8;
+  --sb-text2:      #B8C4DC;
+  --sb-muted:      #8891A8;
+  --sb-border:     rgba(255,255,255,0.08);
+  --sb-border2:    rgba(255,255,255,0.14);
+  --sb-grid-line:  rgba(61,86,212,.035);
+
+  /* Componentes específicos */
+  --sb-nav-bg:     rgba(7,9,15,0.92);
+  --sb-card-bg:    #0D1220;
+  --sb-input-bg:   #131929;
+  --sb-card-shadow:0 4px 24px rgba(0,0,0,0.28);
+  --sb-hover-bg:   rgba(255,255,255,0.05);
+  --sb-active-bg:  rgba(91,116,240,0.15);
+  --sb-badge-bg:   rgba(255,255,255,0.06);
+}
+
+/* ══════════════════════════════════════════════════════════
+   TEMA CLARO
+══════════════════════════════════════════════════════════ */
+html.light {
+  --sb-bg:         #F0F2FC;
+  --sb-bg2:        #FFFFFF;
+  --sb-bg3:        #E8EBF7;
+  --sb-bg4:        #DDE1F5;
+  --sb-blue:       #3D56D4;
+  --sb-blue-lt:    #4A65E8;
+  --sb-green:      #16A34A;
+  --sb-orange:     #D97706;
+  --sb-purple:     #7C3AED;
+  --sb-red:        #DC2626;
+  --sb-cyan:       #0891B2;
+  --sb-text:       #111827;
+  --sb-text2:      #374151;
+  --sb-muted:      #6B7280;
+  --sb-border:     rgba(0,0,0,0.08);
+  --sb-border2:    rgba(0,0,0,0.14);
+  --sb-grid-line:  rgba(61,86,212,.06);
+
+  --sb-nav-bg:     rgba(255,255,255,0.92);
+  --sb-card-bg:    #FFFFFF;
+  --sb-input-bg:   #E8EBF7;
+  --sb-card-shadow:0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.07);
+  --sb-hover-bg:   rgba(0,0,0,0.04);
+  --sb-active-bg:  rgba(61,86,212,0.1);
+  --sb-badge-bg:   rgba(0,0,0,0.05);
+}
+
+/* ══════════════════════════════════════════════════════════
+   BASE
+══════════════════════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--sb-bg);
+  background-image:
+    linear-gradient(var(--sb-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--sb-grid-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  color: var(--sb-text);
+  transition: background-color 250ms ease, color 250ms ease;
+  font-family: 'Syne', sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ══════════════════════════════════════════════════════════
+   SCROLLBAR
+══════════════════════════════════════════════════════════ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--sb-bg); }
+::-webkit-scrollbar-thumb { background: rgba(61,86,212,0.35); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(91,116,240,0.55); }
+
+/* ══════════════════════════════════════════════════════════
+   INPUTS GLOBALES
+══════════════════════════════════════════════════════════ */
+input, select, textarea {
+  background-color: var(--sb-input-bg);
+  color: var(--sb-text);
+  border: 1px solid var(--sb-border2);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 200ms ease, box-shadow 200ms ease, background-color 250ms ease;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--sb-blue-lt);
+  box-shadow: 0 0 0 3px rgba(91,116,240,0.15);
+}
+input::placeholder, textarea::placeholder { color: var(--sb-muted); }
+select option { background-color: var(--sb-bg2); color: var(--sb-text); }
+
+/* ══════════════════════════════════════════════════════════
+   UTILIDADES
+══════════════════════════════════════════════════════════ */
+@layer utilities {
+
+  /* Card */
+  .card {
+    background-color: var(--sb-card-bg);
+    border: 1px solid var(--sb-border);
+    border-radius: 12px;
+    box-shadow: var(--sb-card-shadow);
+    transition: background-color 250ms ease, border-color 250ms ease, box-shadow 250ms ease;
+  }
+  .card-hover {
+    transition: border-color 200ms ease, transform 200ms ease,
+                background-color 250ms ease, box-shadow 200ms ease;
+  }
+  .card-hover:hover {
+    border-color: var(--sb-border2);
+    box-shadow: var(--sb-card-shadow), 0 8px 32px rgba(61,86,212,0.12);
+    transform: translateY(-1px);
+  }
+
+  /* Botones */
+  .btn-primary {
+    background-color: var(--sb-blue);
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 0.625rem 1.25rem;
+    transition: background-color 200ms ease, transform 100ms ease, box-shadow 200ms ease;
+    border: none;
+    cursor: pointer;
+  }
+  .btn-primary:hover:not(:disabled) {
+    background-color: var(--sb-blue-lt);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(61,86,212,0.35);
+  }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .btn-secondary {
+    background-color: var(--sb-bg3);
+    color: var(--sb-text);
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 0.625rem 1.25rem;
+    transition: background-color 200ms ease, box-shadow 200ms ease;
+    border: 1px solid var(--sb-border2);
+    cursor: pointer;
+  }
+  .btn-secondary:hover:not(:disabled) {
+    background-color: var(--sb-bg4);
+    box-shadow: var(--sb-card-shadow);
+  }
+  .btn-secondary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* Tipografía */
+  .font-mono-sb { font-family: 'JetBrains Mono', monospace; }
+  .text-gradient {
+    background: linear-gradient(135deg, #5B74F0, #A78BFA);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .glow-blue { box-shadow: 0 0 20px rgba(61,86,212,0.3); }
+
+  /* Superficie reutilizable (dropdown, popover, tooltip) */
+  .surface {
+    background-color: var(--sb-card-bg);
+    border: 1px solid var(--sb-border2);
+    box-shadow: var(--sb-card-shadow);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   RECHARTS — adapta tooltips al tema
+══════════════════════════════════════════════════════════ */
+.recharts-tooltip-wrapper .recharts-default-tooltip {
+  background-color: var(--sb-card-bg) !important;
+  border: 1px solid var(--sb-border2) !important;
+  border-radius: 8px !important;
+  color: var(--sb-text) !important;
+}
+.recharts-default-tooltip .recharts-tooltip-label { color: var(--sb-text) !important; }
+.recharts-default-tooltip .recharts-tooltip-item  { color: var(--sb-muted) !important; }
+.recharts-cartesian-grid line { stroke: var(--sb-border) !important; }
