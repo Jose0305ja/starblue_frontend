@@ -8,7 +8,7 @@ export default function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
-  const { login, usuario } = useAuth()
+  const { login } = useAuth()
   const navigate = useNavigate()
 
   const getRedirect = (rol: string) => {
@@ -22,31 +22,9 @@ export default function Login() {
     if (!email || !password) { toast.error('Completa todos los campos'); return }
     setLoading(true)
     try {
-      await login(email, password)
+      const loggedUser = await login(email, password)
       toast.success('Bienvenido de vuelta')
-      const rol = usuario?.rol ?? 'cliente'
-      navigate(getRedirect(rol))
-    } catch {
-      toast.error('Credenciales incorrectas')
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  // Redirect post-login necesita el usuario actualizado
-  const handleLoginSuccess = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!email || !password) { toast.error('Completa todos los campos'); return }
-    setLoading(true)
-    try {
-      await login(email, password)
-      // El usuario se actualiza en el contexto, usamos localStorage para leer el token y decodificarlo
-      const token = localStorage.getItem('sb_token')
-      if (token) {
-        const payload = JSON.parse(atob(token.split('.')[1]))
-        toast.success('Bienvenido de vuelta')
-        navigate(getRedirect(payload.rol))
-      }
+      navigate(getRedirect(loggedUser.rol))
     } catch {
       toast.error('Credenciales incorrectas')
     } finally {
@@ -67,7 +45,7 @@ export default function Login() {
         </div>
 
         <div className="card p-6">
-          <form onSubmit={handleLoginSuccess} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-semibold text-sb-muted mb-1.5">Correo electrónico</label>
               <input
