@@ -111,14 +111,14 @@ export interface RutaPopular {
   ciudad_destino: string
   total_reservas: string
   total_pasajeros: string
-  ingresos_total: string
-  porcentaje_ocupacion: string | null
+  ingresos: string
+  pct_ocupacion: string | null
 }
 
 export interface DestinoTop {
-  destino: string
+  ciudad_destino: string
   total_reservas: string
-  porcentaje: string
+  pct_total: string
 }
 
 export interface EmpleadoRanking {

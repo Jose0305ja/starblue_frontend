@@ -120,14 +120,14 @@ export default function AdminDashboard() {
                 <h2 className="font-syne font-semibold text-sb-text mb-4">Top destinos</h2>
                 <div className="space-y-3">
                   {destinos.map((d, idx) => (
-                    <div key={d.destino} className="flex items-center gap-3">
+                    <div key={d.ciudad_destino} className="flex items-center gap-3">
                       <span className="text-sb-muted text-sm w-4 font-mono-sb">{idx + 1}</span>
-                      <span className="text-sb-text text-sm flex-1">{d.destino}</span>
+                      <span className="text-sb-text text-sm flex-1">{d.ciudad_destino}</span>
                       <div className="flex items-center gap-2">
                         <div className="w-20 h-1.5 rounded-full overflow-hidden bg-sb-bg3">
-                          <div className="h-full rounded-full bg-sb-blue-lt" style={{ width: `${d.porcentaje}%` }} />
+                          <div className="h-full rounded-full bg-sb-blue-lt" style={{ width: `${d.pct_total}%` }} />
                         </div>
-                        <span className="text-sb-muted text-xs font-mono-sb w-8 text-right">{d.porcentaje}%</span>
+                        <span className="text-sb-muted text-xs font-mono-sb w-8 text-right">{d.pct_total}%</span>
                       </div>
                     </div>
                   ))}

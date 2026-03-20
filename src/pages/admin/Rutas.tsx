@@ -24,13 +24,13 @@ export default function AdminRutas() {
     }).catch(() => {}).finally(() => setLoading(false))
   }, [])
 
-  const pieData = destinos.map(d => ({ name: d.destino, value: Number(d.total_reservas) }))
+  const pieData = destinos.map(d => ({ name: d.ciudad_destino, value: Number(d.total_reservas) }))
 
   const kpis = [
     { label: 'Rutas activas', value: String(rutas.length), color: 'var(--sb-blue-lt)' },
     { label: 'Ruta más popular', value: rutas[0] ? `${rutas[0].ciudad_origen} → ${rutas[0].ciudad_destino}` : '—', color: 'var(--sb-green)' },
     { label: 'Total pasajeros', value: String(rutas.reduce((s, r) => s + Number(r.total_pasajeros), 0)), color: '#F59E0B' },
-    { label: 'Total ingresos', value: formatPrice(rutas.reduce((s, r) => s + Number(r.ingresos_total), 0)), color: '#A78BFA' },
+    { label: 'Total ingresos', value: formatPrice(rutas.reduce((s, r) => s + Number(r.ingresos), 0)), color: '#A78BFA' },
   ]
 
   return (
@@ -77,13 +77,13 @@ export default function AdminRutas() {
                 <h2 className="font-syne font-semibold text-sb-text mb-4">Porcentaje por destino</h2>
                 <div className="space-y-3">
                   {destinos.map((d, idx) => (
-                    <div key={d.destino} className="flex items-center gap-3">
+                    <div key={d.ciudad_destino} className="flex items-center gap-3">
                       <div className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: COLORS[idx % COLORS.length] }} />
-                      <span className="text-sb-text text-sm flex-1 truncate">{d.destino}</span>
+                      <span className="text-sb-text text-sm flex-1 truncate">{d.ciudad_destino}</span>
                       <div className="w-24 h-1.5 rounded-full overflow-hidden bg-sb-bg3">
-                        <div className="h-full rounded-full" style={{ width: `${d.porcentaje}%`, backgroundColor: COLORS[idx % COLORS.length] }} />
+                        <div className="h-full rounded-full" style={{ width: `${d.pct_total}%`, backgroundColor: COLORS[idx % COLORS.length] }} />
                       </div>
-                      <span className="text-sb-muted text-xs font-mono-sb w-8 text-right">{d.porcentaje}%</span>
+                      <span className="text-sb-muted text-xs font-mono-sb w-8 text-right">{d.pct_total}%</span>
                     </div>
                   ))}
                 </div>
@@ -106,13 +106,13 @@ export default function AdminRutas() {
                       <td className="px-4 py-3 font-semibold text-sb-text">{r.ciudad_origen} → {r.ciudad_destino}</td>
                       <td className="px-4 py-3 font-mono-sb text-sb-text">{r.total_reservas}</td>
                       <td className="px-4 py-3 font-mono-sb text-sb-muted">{r.total_pasajeros}</td>
-                      <td className="px-4 py-3 font-mono-sb text-sb-green">{formatPrice(Number(r.ingresos_total))}</td>
+                      <td className="px-4 py-3 font-mono-sb text-sb-green">{formatPrice(Number(r.ingresos))}</td>
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-2">
                           <div className="w-16 h-1.5 rounded-full overflow-hidden bg-sb-bg3">
-                            <div className="h-full rounded-full bg-sb-blue-lt" style={{ width: `${r.porcentaje_ocupacion ?? 0}%` }} />
+                            <div className="h-full rounded-full bg-sb-blue-lt" style={{ width: `${r.pct_ocupacion ?? 0}%` }} />
                           </div>
-                          <span className="font-mono-sb text-xs text-sb-muted">{r.porcentaje_ocupacion ?? 0}%</span>
+                          <span className="font-mono-sb text-xs text-sb-muted">{r.pct_ocupacion ?? 0}%</span>
                         </div>
                       </td>
                     </tr>
