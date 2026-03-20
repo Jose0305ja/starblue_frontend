@@ -126,8 +126,9 @@ export interface EmpleadoRanking {
   nombre: string
   apellido: string
   total_reservas: string
-  ingresos_generados: string
+  ingresos_total: string
   ticket_promedio: string
+  posicion: number
 }
 
 export interface IngresoMensual {
@@ -137,11 +138,9 @@ export interface IngresoMensual {
 }
 
 export interface DashboardEmpleado {
-  total_reservas: string
-  clientes_unicos: string
-  ingresos_generados: string
-  ticket_promedio: string
-  rutas_frecuentes: { ciudad_origen: string; ciudad_destino: string; veces: string }[]
-  ranking_posicion: string
-  total_empleados: number
+  reservas_mes: { total: number; ingresos: string }
+  clientes_unicos: number
+  top_rutas: { ciudad_origen: string; ciudad_destino: string; total: number }[]
+  ultimas_reservas: unknown[]
+  posicion_ranking: string | null
 }

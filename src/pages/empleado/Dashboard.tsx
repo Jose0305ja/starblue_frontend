@@ -20,20 +20,25 @@ export default function EmpleadoDashboard() {
       .finally(() => setLoading(false))
   }, [])
 
+  const totalReservas = data?.reservas_mes.total ?? 0
+  const ingresosMes = data?.reservas_mes.ingresos ?? '0'
+  const ticketPromedio = totalReservas > 0
+    ? Number(ingresosMes) / totalReservas
+    : 0
+
   const kpis = data ? [
-    { label: 'Reservas este mes', value: data.total_reservas, color: 'var(--sb-blue-lt)', icon: '🎫' },
+    { label: 'Reservas este mes', value: totalReservas, color: 'var(--sb-blue-lt)', icon: '🎫' },
     { label: 'Clientes atendidos', value: data.clientes_unicos, color: 'var(--sb-green)', icon: '👤' },
-    { label: 'Ingresos generados', value: formatPrice(Number(data.ingresos_generados)), color: '#F59E0B', icon: '💰' },
-    { label: 'Ranking en equipo', value: `#${data.ranking_posicion ?? '—'} de ${data.total_empleados}`, color: '#A78BFA', icon: '🏆' },
+    { label: 'Ingresos generados', value: formatPrice(Number(ingresosMes)), color: '#F59E0B', icon: '💰' },
+    { label: 'Posición ranking', value: `#${data.posicion_ranking ?? '—'}`, color: '#A78BFA', icon: '🏆' },
   ] : []
 
   const metaReservas = 30
-  const totalReservas = Number(data?.total_reservas ?? 0)
   const pctMeta = Math.min((totalReservas / metaReservas) * 100, 100)
 
-  const rutasChart = data?.rutas_frecuentes.map(r => ({
+  const rutasChart = data?.top_rutas.map(r => ({
     name: `${r.ciudad_origen.slice(0, 4)}→${r.ciudad_destino.slice(0, 4)}`,
-    reservas: Number(r.veces),
+    reservas: r.total,
   })) ?? []
 
   return (
@@ -105,11 +110,11 @@ export default function EmpleadoDashboard() {
                 <div className="space-y-3">
                   <div className="flex justify-between text-sm">
                     <span className="text-sb-muted">Ticket promedio</span>
-                    <span className="font-mono-sb text-sb-text">{formatPrice(Number(data?.ticket_promedio ?? 0))}</span>
+                    <span className="font-mono-sb text-sb-text">{formatPrice(ticketPromedio)}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-sb-muted">Posición en ranking</span>
-                    <span className="font-mono-sb text-sb-purple">#{data?.ranking_posicion ?? '—'}</span>
+                    <span className="font-mono-sb text-sb-purple">#{data?.posicion_ranking ?? '—'}</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-sb-muted">Meta completada</span>

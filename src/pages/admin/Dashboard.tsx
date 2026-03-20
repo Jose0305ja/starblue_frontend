@@ -146,7 +146,7 @@ export default function AdminDashboard() {
                         <p className="text-sm font-semibold text-sb-text">{e.nombre} {e.apellido}</p>
                         <p className="text-xs text-sb-muted">{e.total_reservas} reservas</p>
                       </div>
-                      <span className="font-mono-sb text-sm text-sb-green">{formatPrice(Number(e.ingresos_generados))}</span>
+                      <span className="font-mono-sb text-sm text-sb-green">{formatPrice(Number(e.ingresos_total))}</span>
                     </div>
                   ))}
                 </div>

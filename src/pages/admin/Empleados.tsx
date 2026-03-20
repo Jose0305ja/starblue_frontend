@@ -126,7 +126,7 @@ export default function AdminEmpleados() {
                         </td>
                         <td className="px-4 py-3 text-sb-muted">{emp.email}</td>
                         <td className="px-4 py-3 font-mono-sb text-sb-text">{rd?.total_reservas ?? '0'}</td>
-                        <td className="px-4 py-3 font-mono-sb text-sb-green">{formatPrice(Number(rd?.ingresos_generados ?? 0))}</td>
+                        <td className="px-4 py-3 font-mono-sb text-sb-green">{formatPrice(Number(rd?.ingresos_total ?? 0))}</td>
                         <td className="px-4 py-3 font-mono-sb text-sb-muted">{formatPrice(Number(rd?.ticket_promedio ?? 0))}</td>
                       </tr>
                     )

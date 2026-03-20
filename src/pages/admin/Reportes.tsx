@@ -130,7 +130,7 @@ export default function AdminReportes() {
                       <td className="px-5 py-3 text-sb-muted font-mono-sb">{idx + 1}</td>
                       <td className="px-5 py-3 font-semibold text-sb-text">{e.nombre} {e.apellido}</td>
                       <td className="px-5 py-3 font-mono-sb text-sb-text">{e.total_reservas}</td>
-                      <td className="px-5 py-3 font-mono-sb text-sb-green">{formatPrice(Number(e.ingresos_generados))}</td>
+                      <td className="px-5 py-3 font-mono-sb text-sb-green">{formatPrice(Number(e.ingresos_total))}</td>
                       <td className="px-5 py-3 font-mono-sb text-sb-muted">{formatPrice(Number(e.ticket_promedio))}</td>
                     </tr>
                   ))}
