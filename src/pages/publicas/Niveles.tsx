@@ -19,7 +19,7 @@ export default function Niveles() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-5 gap-4 mb-16">
+        <div className="grid md:grid-cols-3 gap-4 mb-16">
           {NIVELES.map((nivel, idx) => {
             const color = getNivelColor(nivel.nivel)
             return (
