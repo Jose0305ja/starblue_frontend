@@ -1,11 +1,48 @@
 import type { NivelConfig } from '../types'
 
 export const NIVELES: NivelConfig[] = [
-  { nivel: 'explorador', min: 0,  max: 4,        descuento: 0,  label: '✈ Explorador', beneficios: ['Acceso a todas las rutas', 'Reservas en línea 24/7'] },
-  { nivel: 'viajero',    min: 5,  max: 14,       descuento: 5,  label: '🥈 Viajero',    beneficios: ['5% de descuento', 'Soporte preferencial', 'Rutas prioritarias'] },
-  { nivel: 'frecuente',  min: 15, max: 29,       descuento: 10, label: '🥇 Frecuente',  beneficios: ['10% de descuento', 'Asiento preferencial', 'Embarque anticipado'] },
-  { nivel: 'elite',      min: 30, max: 49,       descuento: 15, label: '💎 Elite',       beneficios: ['15% de descuento', 'Cambios sin costo', 'Sala VIP', 'Equipaje extra'] },
-  { nivel: 'vip',        min: 50, max: Infinity, descuento: 20, label: '⭐ VIP',          beneficios: ['20% de descuento', 'Atención personalizada', 'Boletos de cortesía', 'Acceso ejecutivo'] },
+  {
+    nivel: 'bronce',
+    min: 0,
+    max: 9,
+    descuento: 10,
+    label: '🥉 Bronce',
+    beneficios: [
+      'Aura Shop Dgo – 10% en accesorios',
+      'Postres Miel – 10% en pedidos + topping gratis',
+      'Café Nómada Dgo – 10% en bebidas + bebida especial',
+      'La Parrillita Express – 15% en pedidos para llevar',
+      'Detalles Mágicos Dgo – Regalo sorpresa en compra',
+    ],
+  },
+  {
+    nivel: 'plata',
+    min: 10,
+    max: 24,
+    descuento: 15,
+    label: '🥈 Plata',
+    beneficios: [
+      'Café Canela Dgo – Pan dulce gratis en consumo',
+      'Sugar Bloom Dgo – Cupcake gratis en compra',
+      'Luna Artesanal – 15% en productos hechos a mano',
+      'Dulce Tentación Repostería – 15% en pasteles',
+      'Beauty Spot Dgo – Descuento en faciales básicos',
+    ],
+  },
+  {
+    nivel: 'oro',
+    min: 25,
+    max: Infinity,
+    descuento: 20,
+    label: '🥇 Oro',
+    beneficios: [
+      'Casa Roma Café – 2x1 en bebidas',
+      'Bendito Antojo Dgo – 2x1 en tacos',
+      'La Esquina Street Food – Combo exclusivo para miembros',
+      'Studio Glow Nails – 10% en uñas + diseño gratis',
+      'Lash Room Dgo – 15% en retoques',
+    ],
+  },
 ]
 
 export const getNivel = (viajes: number): NivelConfig =>
@@ -25,11 +62,15 @@ export const getProgreso = (viajes: number) => {
 
 export const getNivelColor = (nivel: string): string => {
   const map: Record<string, string> = {
-    explorador: '#8891A8',
-    viajero:    '#94A3B8',
-    frecuente:  '#F59E0B',
-    elite:      '#5B74F0',
-    vip:        '#EAB308',
+    bronce: '#CD7F32',
+    plata: '#94A3B8',
+    oro: '#EAB308',
+    // compatibilidad con valores previos
+    explorador: '#CD7F32',
+    viajero: '#94A3B8',
+    frecuente: '#EAB308',
+    elite: '#EAB308',
+    vip: '#EAB308',
   }
   return map[nivel] ?? '#8891A8'
 }

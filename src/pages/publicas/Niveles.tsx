@@ -19,16 +19,16 @@ export default function Niveles() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-5 gap-4 mb-16">
+        <div className="grid md:grid-cols-3 gap-4 mb-16">
           {NIVELES.map((nivel, idx) => {
             const color = getNivelColor(nivel.nivel)
             return (
               <div
                 key={nivel.nivel}
                 className="card p-5 text-center relative overflow-hidden"
-                style={idx === 4 ? { borderColor: `${color}40`, boxShadow: `0 0 20px ${color}20` } : {}}
+                style={idx === NIVELES.length - 1 ? { borderColor: `${color}40`, boxShadow: `0 0 20px ${color}20` } : {}}
               >
-                {idx === 4 && (
+                {idx === NIVELES.length - 1 && (
                   <div
                     className="absolute inset-0 opacity-5"
                     style={{ background: `radial-gradient(circle at center, ${color}, transparent 70%)` }}

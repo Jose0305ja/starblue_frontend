@@ -6,7 +6,7 @@ export interface Usuario {
   telefono?: string
   rol: 'cliente' | 'empleado' | 'admin'
   viajes_realizados: number
-  nivel_membresia: 'explorador' | 'viajero' | 'frecuente' | 'elite' | 'vip'
+  nivel_membresia: 'bronce' | 'plata' | 'oro' | 'explorador' | 'viajero' | 'frecuente' | 'elite' | 'vip'
   activo: boolean
   created_at: string
 }

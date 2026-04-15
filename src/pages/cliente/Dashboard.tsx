@@ -23,7 +23,7 @@ export default function ClienteDashboard() {
   }, [])
 
   if (!usuario) return null
-  const isVIP = usuario.nivel_membresia === 'vip'
+  const isOro = ['oro', 'vip'].includes(usuario.nivel_membresia)
 
   return (
     <div className="min-h-screen">
@@ -55,12 +55,12 @@ export default function ClienteDashboard() {
             </Link>
           </div>
 
-          {isVIP ? (
+          {isOro ? (
             <div className="mt-4 p-3 rounded-lg flex items-center gap-2"
               style={{ backgroundColor: 'rgba(234,179,8,0.1)', border: '1px solid rgba(234,179,8,0.3)' }}>
               <span>⭐</span>
               <p className="text-sm font-semibold" style={{ color: '#EAB308' }}>
-                ¡Eres VIP! Disfrutas 20% de descuento en cada viaje.
+                ¡Eres nivel Oro! Disfrutas 20% de descuento en cada viaje.
               </p>
             </div>
           ) : (
