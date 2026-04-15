@@ -86,7 +86,7 @@ export const NavbarPublico = () => {
               </button>
 
               {dropOpen && (() => {
-                const nivelActual  = usuario.nivel_membresia ?? 'explorador'
+                const nivelActual  = usuario.nivel_membresia ?? 'bronce'
                 const viajes       = usuario.viajes_realizados ?? 0
                 const color        = getNivelColor(nivelActual)
                 const progreso     = getProgreso(viajes)

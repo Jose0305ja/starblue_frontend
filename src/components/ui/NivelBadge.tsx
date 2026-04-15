@@ -33,11 +33,14 @@ export const NivelBadge = ({ nivel, viajes, size = 'md' }: NivelBadgeProps) => {
 
 function getNivelLabel(nivel: string): string {
   const map: Record<string, string> = {
-    explorador: '✈ Explorador',
-    viajero:    '🥈 Viajero',
-    frecuente:  '🥇 Frecuente',
-    elite:      '💎 Elite',
-    vip:        '⭐ VIP',
+    bronce:    '🥉 Bronce',
+    plata:     '🥈 Plata',
+    oro:       '🥇 Oro',
+    explorador:'🥉 Bronce',
+    viajero:   '🥈 Plata',
+    frecuente: '🥇 Oro',
+    elite:     '🥇 Oro',
+    vip:       '🥇 Oro',
   }
   return map[nivel] ?? nivel
 }

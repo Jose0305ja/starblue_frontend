@@ -26,9 +26,9 @@ export default function Niveles() {
               <div
                 key={nivel.nivel}
                 className="card p-5 text-center relative overflow-hidden"
-                style={idx === 4 ? { borderColor: `${color}40`, boxShadow: `0 0 20px ${color}20` } : {}}
+                style={idx === NIVELES.length - 1 ? { borderColor: `${color}40`, boxShadow: `0 0 20px ${color}20` } : {}}
               >
-                {idx === 4 && (
+                {idx === NIVELES.length - 1 && (
                   <div
                     className="absolute inset-0 opacity-5"
                     style={{ background: `radial-gradient(circle at center, ${color}, transparent 70%)` }}
